@@ -22,10 +22,9 @@ export async function run() {
       const range = context.workbook.getSelectedRange();
       // Read the range address
       range.load("address");
-      // Update the fill color
       let rangeSize = range.getResizedRange(data.length-1, data[0].length-1);
       let firstRow = rangeSize.getRow();
-      
+        // Update the fill color
       firstRow.format.fill.color = "#f4a460";
       rangeSize.values = data;
       await context.sync();
