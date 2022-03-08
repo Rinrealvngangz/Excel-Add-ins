@@ -18,7 +18,7 @@ export async function run() {
     await Excel.run(async (context) => {
       let textJson = document.getElementById("data-json").value;
       const dataJson = JSON.parse(textJson);
-      let data = fillJsonToData(dataJson);
+      let data = fillJsonObjectToData(dataJson);
       const range = context.workbook.getSelectedRange();
       // Read the range address
       range.load("address");
@@ -26,6 +26,7 @@ export async function run() {
       let firstRow = rangeSize.getRow();
         // Update the fill color
       firstRow.format.fill.color = "#f4a460";
+  
       rangeSize.values = data;
       await context.sync();
     });
@@ -34,25 +35,46 @@ export async function run() {
     console.error(error);
   }
 }
-
-  // let data = [ ["name","age"],["tuan",20],["rin",10]];
-    function fillJsonToData(dataJson){
+//      let data = [ ["name","age","contact/address","contact/sdt"],["tuan",20,"bui thi xuan","0949238337"]];
+    function fillJsonObjectToData(dataJson){
       let props =[];
       let resultData =[];
+
       dataJson.forEach(el =>{
         let dataProps =[];
-       
-        for( let key in el){
-              if(el.hasOwnProperty(key)){
-                  if(props.indexOf(key) === -1 ){
-                    props.push(key);
-                  }
-                  dataProps.push(el[key]);
-              }
-        }
+        let nodeRoots =[];
+       mapKeyToValue(props,dataProps,el,nodeRoots);
         resultData.push(dataProps);
       });
       resultData.unshift(props);
           return resultData;
+    }
+      //props[]:key, dataProps[]:values, el:{} , nameKey:format name key
+    function mapKeyToValue(props,dataProps,el,nodeRoots){
+      for( let key in el){
+        if(el.hasOwnProperty(key)){
+              if(el[key] !== null && el[key].constructor === ({}).constructor){
+                if(nodeRoots.length >0){
+                   nodeRoots[0] = nodeRoots[0] +"/"+ key; // ["contact/address"]
+                }else{
+                 nodeRoots.push(key);// ["contact"];
+                }
+                 mapKeyToValue(props,dataProps,el[key],nodeRoots);
+                 nodeRoots.shift();
+             }
+             else{
+              if(props.indexOf(key) === -1){
+                if(nodeRoots.length >0){
+                  if(props.indexOf(nodeRoots[0]+ "/" + key)=== -1){
+                    props.push(nodeRoots[0] + "/" + key);//contact/sdt
+                  }
+                }else{
+                  props.push(key);
+                }
+            }        
+              dataProps.push(el[key]);
+             } 
+        }
+      }
     }
 
