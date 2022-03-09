@@ -12,7 +12,7 @@ Office.onReady((info) => {
     document.getElementById("run").onclick = run;
   }
 });
-let IS_ARRAY = false;
+let IS_SUB_ARRAY = false;
 export async function run() {
   try {
     await Excel.run(async (context) => {
@@ -73,7 +73,7 @@ export async function run() {
                   index: valueIndex.index
                 }
                  mapKeyToValue(dictionary,length,valueSub,nodeRoots);
-                 if(IS_ARRAY){
+                 if(IS_SUB_ARRAY){
                   let rootArray = nodeRoots[0].split('/')[0];
                       nodeRoots[0] = rootArray;                 
                 }else{
@@ -81,7 +81,7 @@ export async function run() {
                 }
               }
              else if(Array.isArray(valueIndex.el[key])){
-                IS_ARRAY = true;
+              IS_SUB_ARRAY = true;
                 Object.assign({}, valueIndex.el[key]);
                 nodeRoots[0] = key;
                 let valueSub = {
@@ -90,7 +90,7 @@ export async function run() {
                 }
                 mapKeyToValue(dictionary,length,valueSub,nodeRoots);
                 nodeRoots.shift();
-                IS_ARRAY =false;
+                IS_SUB_ARRAY =false;
               }
              else{
                    //check is exist key dictionary by key sub(save nodeRoots) 
