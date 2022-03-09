@@ -12,12 +12,15 @@ Office.onReady((info) => {
     document.getElementById("run").onclick = run;
   }
 });
-
+let IS_ARRAY = false;
 export async function run() {
   try {
     await Excel.run(async (context) => {
       let textJson = document.getElementById("data-json").value;
-      const dataJson = JSON.parse(textJson);
+      let dataJson = JSON.parse(textJson);
+     if(!Array.isArray(dataJson)){
+       dataJson = [dataJson].flat();
+     }
       let data = fillJsonObjectToData(dataJson);
       const range = context.workbook.getSelectedRange();
       // Read the range address
@@ -46,8 +49,7 @@ export async function run() {
         const valueIndex = {
            el: el,
            index: index
-        }
-           // dictionary:{"name":["rin","tuan"] , "age":[22,20]}
+        }// dictionary:{"name":["rin","tuan"] , "age":[22,20]}
         mapKeyToValue(dictionary,dataJson.length,valueIndex,nodeRoots);
       });
       dictionaryToStructureExcel(resultData,dictionary,props);
@@ -64,15 +66,32 @@ export async function run() {
                 if(nodeRoots.length >0){
                    nodeRoots[0] = nodeRoots[0] +"/"+ key; // ["contact/address"]
                 }else{
-                 nodeRoots.push(key);// ["contact"];
+                 nodeRoots[0] =key;// ["contact"];
                 }
                 let valueSub = {
                   el:valueIndex.el[key],
                   index: valueIndex.index
                 }
-                 mapKeyToValue(dictionary,dataProps,valueSub,nodeRoots);
-                 nodeRoots.shift();
-             }
+                 mapKeyToValue(dictionary,length,valueSub,nodeRoots);
+                 if(IS_ARRAY){
+                  let rootArray = nodeRoots[0].split('/')[0];
+                      nodeRoots[0] = rootArray;                 
+                }else{
+                  nodeRoots.shift();
+                }
+              }
+             else if(Array.isArray(valueIndex.el[key])){
+                IS_ARRAY = true;
+                Object.assign({}, valueIndex.el[key]);
+                nodeRoots[0] = key;
+                let valueSub = {
+                  el:valueIndex.el[key],
+                  index: valueIndex.index
+                }
+                mapKeyToValue(dictionary,length,valueSub,nodeRoots);
+                nodeRoots.shift();
+                IS_ARRAY =false;
+              }
              else{
                    //check is exist key dictionary by key sub(save nodeRoots) 
                    if(nodeRoots.length >0){
@@ -83,8 +102,7 @@ export async function run() {
                    }
                    else{
                      if(!dictionary.hasOwnProperty(key)){
-                      dictionary[key] = dataProps;//{"name":[null,null,...n]}
-                    
+                         dictionary[key] = dataProps;//{"name":[null,null,...n]}
                      }
                      dictionary[key][valueIndex.index] = valueIndex.el[key];// replace null to value of key
                    }
@@ -92,7 +110,6 @@ export async function run() {
         }
       }
     }
-
     function dictionaryToStructureExcel(data,dictionary,props){
       for( let key in dictionary){
           if(props.indexOf(key) === -1){
