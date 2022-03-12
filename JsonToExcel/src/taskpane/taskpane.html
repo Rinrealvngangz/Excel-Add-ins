@@ -22,8 +22,8 @@
 
     <body class="ms-font-m ms-welcome ms-Fabric">
         <header class="ms-welcome__header ms-bgColor-neutralLighter">
-            <img width="90" height="90" src="../../assets/logo-main.png" alt="Contoso" title="Contoso" />
-            <h2 class="ms-font-su">Json to Excel</h1>
+            <img width="50" height="50" src="../../assets/logo-main.png" alt="Contoso" title="Contoso" />
+            <h3 class="ms-font-su">Json to Excel</h3>
         </header>
         <section id="sideload-msg" class="ms-welcome__main">
             <h2 class="ms-font-xl">Please sideload your add-in to see app body.</h2>
@@ -33,15 +33,42 @@
              <div class="line-solid"></div>
              <div class="fill-data">
                 <h3>Fill in Json data</h3>
-                <textarea id="data-json"  placeholder="Add Json...">
-                </textarea>
+                <textarea id="data-json"   placeholder="Add Json..."></textarea>
+             </div>
+             <div id="valid-json">
+                <p id="text-error" class="msg-error">Invalid Json</p>
              </div>
            
+             <div class="container-button">
             <div role="button" id="run" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">
                 <span class="ms-Button-label">Convert</span>
             </div>
-        
+            <div role="button" id="clear" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">
+                <span class="ms-Button-label">Clear</span>
+            </div>
+             </div>
+           
         </main>
+     <script>
+         const textArea = document.querySelector('textarea');
+          textArea.addEventListener("input",bindTextArea);
+         function bindTextArea(e){
+            if(e.target.value == ""){
+                document.getElementById("valid-json").style.display = "none";
+            }else{
+                let txtJson =e.target.value;
+                try{
+                    JSON.parse(txtJson);
+                    document.getElementById("valid-json").style.display = "none";
+                }catch(error){
+                    document.getElementById("valid-json").style.display = "block";      
+                    const [first, ...rest] = `${error}`.split(':');
+                    const formatError  = rest.join(':');
+                    document.getElementById("text-error").innerHTML = formatError;      
+                }
+            }
+         }
+     </script>   
     </body>
 
 </html>

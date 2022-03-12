@@ -10,14 +10,17 @@ Office.onReady((info) => {
     document.getElementById("sideload-msg").style.display = "none";
     document.getElementById("app-body").style.display = "flex";
     document.getElementById("run").onclick = run;
+    document.getElementById("clear").onclick = clear;
   }
 });
 let IS_SUB_ARRAY = false;
 export async function run() {
+  let textJson = document.getElementById("data-json").value;
   try {
-    await Excel.run(async (context) => {
-      let textJson = document.getElementById("data-json").value;
+     await Excel.run(async (context) => {
+      
       let dataJson = JSON.parse(textJson);
+      document.getElementById("valid-json").style.display = "none";
      if(!Array.isArray(dataJson)){
        dataJson = [dataJson].flat();
      }
@@ -29,13 +32,20 @@ export async function run() {
         // Update the fill color first row
         let firstRow = rangeSize.getRow();
       firstRow.format.fill.color = "#f4a460";
-  
       rangeSize.values = data;
       await context.sync();
     });
    
-  } catch (error) {
-    console.error(error);
+  }catch(error){
+    document.getElementById("valid-json").style.display = "block";
+    if(textJson == ""){
+      document.getElementById("text-error").innerHTML ="Require add Json"
+    }else{
+       const [first, ...rest] = `${error}`.split(':');
+       const formatError  = rest.join(':');
+      document.getElementById("text-error").innerHTML = formatError;
+    }
+   
   }
 }
 //  Structure so that display table Excel
@@ -133,3 +143,7 @@ export async function run() {
         return temps;
     }
 
+    function clear(){
+      document.getElementById("data-json").value = "";
+      document.getElementById("valid-json").style.display = "none";
+    }
