@@ -15,7 +15,9 @@
 
     <!-- For more information on Fluent UI, visit https://developer.microsoft.com/fluentui#/. -->
     <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/9.6.1/css/fabric.min.css"/>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500&display=swap" rel="stylesheet"> 
     <!-- Template styles -->
     <link href="taskpane.css" rel="stylesheet" type="text/css" />
 </head>
@@ -47,28 +49,8 @@
                 <span class="ms-Button-label">Clear</span>
             </div>
              </div>
-           
         </main>
-     <script>
-         const textArea = document.querySelector('textarea');
-          textArea.addEventListener("input",bindTextArea);
-         function bindTextArea(e){
-            if(e.target.value == ""){
-                document.getElementById("valid-json").style.display = "none";
-            }else{
-                let txtJson =e.target.value;
-                try{
-                    JSON.parse(txtJson);
-                    document.getElementById("valid-json").style.display = "none";
-                }catch(error){
-                    document.getElementById("valid-json").style.display = "block";      
-                    const [first, ...rest] = `${error}`.split(':');
-                    const formatError  = rest.join(':');
-                    document.getElementById("text-error").innerHTML = formatError;      
-                }
-            }
-         }
-     </script>   
+     <script src="../validates/jsonValidates.js" ></script>   
     </body>
 
 </html>

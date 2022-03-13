@@ -1,9 +1,5 @@
-/*
- * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
- * See LICENSE in the project root for license information.
- */
-
-/* global console, document, Excel, Office */
+const {exception} = require('../validates/exception');
+let IS_SUB_ARRAY = false;
 
 Office.onReady((info) => {
   if (info.host === Office.HostType.Excel) {
@@ -13,16 +9,15 @@ Office.onReady((info) => {
     document.getElementById("clear").onclick = clear;
   }
 });
-let IS_SUB_ARRAY = false;
+
 export async function run() {
-  let textJson = document.getElementById("data-json").value;
+      let textJson = document.getElementById("data-json").value;
   try {
      await Excel.run(async (context) => {
-      
       let dataJson = JSON.parse(textJson);
       document.getElementById("valid-json").style.display = "none";
      if(!Array.isArray(dataJson)){
-       dataJson = [dataJson].flat();
+       dataJson = [dataJson].flat();//convert {} -> []
      }
       let data = fillJsonObjectToData(dataJson);
       const range = context.workbook.getSelectedRange();
@@ -30,31 +25,24 @@ export async function run() {
       range.load("address");
       let rangeSize = range.getResizedRange(data.length-1, data[0].length-1);
         // Update the fill color first row
-        let firstRow = rangeSize.getRow();
+      let firstRow = rangeSize.getRow();
       firstRow.format.fill.color = "#f4a460";
+      firstRow.format.autofitRows();
       rangeSize.values = data;
       await context.sync();
     });
    
   }catch(error){
-    document.getElementById("valid-json").style.display = "block";
-    if(textJson == ""){
-      document.getElementById("text-error").innerHTML ="Require add Json"
-    }else{
-       const [first, ...rest] = `${error}`.split(':');
-       const formatError  = rest.join(':');
-      document.getElementById("text-error").innerHTML = formatError;
-    }
-   
+    exception(error,textJson);
   }
 }
 //  Structure so that display table Excel
 //  let data = [["name","age","contact/address","contact/sdt"],["tuan",20,"bui thi xuan","0949238337"]];
     function fillJsonObjectToData(dataJson){
-      let props =[];
-      let resultData =[];
-      let dictionary = {};
-      dataJson.forEach((el,index) =>{
+        let props =[];
+        let resultData =[];
+        let dictionary = {};
+        dataJson.forEach((el,index) =>{
         let nodeRoots =[];//only one element
         const valueIndex = {
            el: el,
@@ -62,9 +50,9 @@ export async function run() {
         }// dictionary:{"name":["rin","tuan"] , "age":[22,20]}
         mapKeyToValue(dictionary,dataJson.length,valueIndex,nodeRoots);
       });
-      dictionaryToStructureExcel(resultData,dictionary,props);
-      resultData.unshift(props);
-          return resultData;
+        dictionaryToStructureExcel(resultData,dictionary,props);
+        resultData.unshift(props);
+        return resultData;
     }
       //props[]:key, dataProps[]:values, el:{} ,nodeRoots:save key of sub object so that check isExist
     function mapKeyToValue(dictionary,length,valueIndex,nodeRoots){
@@ -73,49 +61,13 @@ export async function run() {
         if(valueIndex.el.hasOwnProperty(key)){
               //check object sub
               if(valueIndex.el[key] !== null && valueIndex.el[key].constructor === ({}).constructor){
-                if(nodeRoots.length >0){
-                   nodeRoots[0] = nodeRoots[0] +"/"+ key; // ["contact/address"]
-                }else{
-                 nodeRoots[0] =key;// ["contact"];
-                }
-                let valueSub = {
-                  el:valueIndex.el[key],
-                  index: valueIndex.index
-                }
-                 mapKeyToValue(dictionary,length,valueSub,nodeRoots);
-                 if(IS_SUB_ARRAY){
-                  let rootArray = nodeRoots[0].split('/')[0];
-                      nodeRoots[0] = rootArray;                 
-                }else{
-                  nodeRoots.shift();
-                }
+                createSubObjectJson(dictionary,length,valueIndex,nodeRoots,key);
               }
-             else if(Array.isArray(valueIndex.el[key])){
-              IS_SUB_ARRAY = true;
-                Object.assign({}, valueIndex.el[key]);
-                nodeRoots[0] = key;
-                let valueSub = {
-                  el:valueIndex.el[key],
-                  index: valueIndex.index
-                }
-                mapKeyToValue(dictionary,length,valueSub,nodeRoots);
-                nodeRoots.shift();
-                IS_SUB_ARRAY =false;
+             else if(Array.isArray(valueIndex.el[key])){      
+              createSubJsonArray(dictionary,length,valueIndex,nodeRoots,key);
               }
              else{
-                   //check is exist key dictionary by key sub(save nodeRoots) 
-                   if(nodeRoots.length >0){
-                     if(!dictionary.hasOwnProperty(nodeRoots[0]+ "/" + key)){
-                      dictionary[nodeRoots[0]+ "/" + key] = dataProps;
-                    }
-                    dictionary[nodeRoots[0] + "/" + key][valueIndex.index] = valueIndex.el[key];
-                   }
-                   else{
-                     if(!dictionary.hasOwnProperty(key)){
-                         dictionary[key] = dataProps;//{"name":[null,null,...n]}
-                     }
-                     dictionary[key][valueIndex.index] = valueIndex.el[key];// replace null to value of key
-                   }
+              createDictionary(dictionary,valueIndex,nodeRoots,dataProps,key);
              } 
         }
       }
@@ -146,4 +98,52 @@ export async function run() {
     function clear(){
       document.getElementById("data-json").value = "";
       document.getElementById("valid-json").style.display = "none";
+    }
+
+    function createDictionary(dictionary,valueIndex,nodeRoots,dataProps,key){
+   //check is exist key dictionary by key sub(save nodeRoots) 
+      if(nodeRoots.length >0){
+        if(!dictionary.hasOwnProperty(nodeRoots[0]+ "/" + key)){
+        dictionary[nodeRoots[0]+ "/" + key] = dataProps;
+      }
+      dictionary[nodeRoots[0] + "/" + key][valueIndex.index] = valueIndex.el[key];
+      }
+      else{
+        if(!dictionary.hasOwnProperty(key)){
+            dictionary[key] = dataProps;//{"name":[null,null,...n]}
+        }
+        dictionary[key][valueIndex.index] = valueIndex.el[key];// replace null to value of key
+      }
+    }
+
+    function createSubJsonArray(dictionary,length,valueIndex,nodeRoots,key){
+      IS_SUB_ARRAY = true;
+      Object.assign({}, valueIndex.el[key]);
+      nodeRoots[0] = key;
+      let valueSub = {
+        el:valueIndex.el[key],
+        index: valueIndex.index
+      }
+      mapKeyToValue(dictionary,length,valueSub,nodeRoots);
+      nodeRoots.shift();
+      IS_SUB_ARRAY =false;
+    }
+
+    function createSubObjectJson(dictionary,length,valueIndex,nodeRoots,key){
+      if(nodeRoots.length >0){
+        nodeRoots[0] = nodeRoots[0] +"/"+ key; // ["contact/address"]
+     }else{
+      nodeRoots[0] =key;// ["contact"];
+     }
+     let valueSub = {
+       el:valueIndex.el[key],
+       index: valueIndex.index
+     }
+      mapKeyToValue(dictionary,length,valueSub,nodeRoots);
+      if(IS_SUB_ARRAY){
+       let rootArray = nodeRoots[0].split('/')[0];
+           nodeRoots[0] = rootArray;                 
+     }else{
+       nodeRoots.shift();
+     }
     }

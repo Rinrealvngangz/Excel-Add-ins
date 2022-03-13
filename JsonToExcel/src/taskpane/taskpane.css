@@ -65,7 +65,7 @@
     float: left;
     display: block;
     margin-top: 30px;
-    margin-left: 20px;
+    margin-left: 10px;
     margin-bottom: 20px;
  }
  
@@ -73,7 +73,7 @@
     color: #ffffff;
   background-color: black;
   padding: 5px 20px;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
   border-radius: 15px;
 }
@@ -86,13 +86,13 @@
     border-top: 2px solid #bbb;
     width: 100%;
 }
-textarea {
-    font-family:Georgia, 'Times New Roman', Times, serif;
+#data-json {
+    font-family:'Zilla Slab', serif;
     width: 500px;
     height: 250px;
     font-size: 16px;
-    color:rgb(87, 83, 83);
-    font-weight:400
+    color: rgb(22, 129, 31);
+    font-weight:500;
   }
 b {
     font-weight: bold;
@@ -112,7 +112,7 @@ b {
 
 ::placeholder {
     color: grey;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family:'Zilla Slab', serif;
     font-size: 16px;
     font-weight:400
   }
