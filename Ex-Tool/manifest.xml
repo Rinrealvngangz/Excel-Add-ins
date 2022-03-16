@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0" xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="TaskPaneApp">
+  <Id>dc67717c-8d38-4f38-b5af-cbc1f64d1ba7</Id>
+  <Version>1.0.0.0</Version>
+  <ProviderName>Contoso</ProviderName>
+  <DefaultLocale>en-US</DefaultLocale>
+  <DisplayName DefaultValue="Ex-Tool"/>
+   <Description DefaultValue="Tools for Excel"/>
+  <IconUrl DefaultValue="https://localhost:3000/assets/icon-32.png"/>
+  <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/icon-64.png"/>
+  <SupportUrl DefaultValue="https://www.contoso.com/help"/>
+  <AppDomains>
+    <AppDomain>https://www.contoso.com</AppDomain>
+  </AppDomains>
+  <Hosts>
+    <Host Name="Workbook"/>
+  </Hosts>
+  <DefaultSettings>
+    <SourceLocation DefaultValue="https://localhost:3000/taskpane.html"/>
+  </DefaultSettings>
+  <Permissions>ReadWriteDocument</Permissions>
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
+    <Hosts>
+      <Host xsi:type="Workbook">
+        <DesktopFormFactor>
+          <FunctionFile resid="Commands.Url"/>
+          <ExtensionPoint xsi:type="PrimaryCommandSurface">
+            <CustomTab id="ContosoTab">
+            <Label resid="ExTools.Label"/>
+              <Group id="ExTools">
+                <Label resid="ExTools.Label"/>
+                <Icon>
+                  <bt:Image size="16" resid="Icon.16x16"/>
+                  <bt:Image size="32" resid="Icon.32x32"/>
+                  <bt:Image size="80" resid="Icon.80x80"/>
+                   <bt:Image size="16" resid="currency.16x16"/>
+                    <bt:Image size="32" resid="currency.32x32"/>
+                    <bt:Image size="80" resid="currency.80x80"/>
+                </Icon>
+                <Control xsi:type="Button" id="JsonButton">
+                  <Label resid="JsonButton.Label"/>
+                   <Supertip>
+                    <Title resid="JsonButton.Label"/>
+                    <Description resid="JsonButton.Tooltip"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.16x16"/>
+                    <bt:Image size="32" resid="Icon.32x32"/>
+                    <bt:Image size="80" resid="Icon.80x80"/>
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <TaskpaneId>ButtonId1</TaskpaneId>
+                    <SourceLocation resid="Taskpane.Url"/>
+                  </Action>
+                </Control>
+                 <Control xsi:type="Menu" id="currencyMenu">
+                  <Label resid="currencyMenu.Label"/>
+                   <Supertip>
+                    <Title resid="currencyMenu.Label"/>
+                    <Description resid="currencyMenu.Tooltip"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="currency.16x16"/>
+                    <bt:Image size="32" resid="currency.32x32"/>
+                    <bt:Image size="80" resid="currency.80x80"/>
+                  </Icon>
+                  <Items>
+                    <Item id="currencyUsd">
+                      <Label resid="usd"/>
+                      <Supertip>
+                          <Title resid="usd.title"/>
+                          <Description resid="usd.Tooltip"/>
+                      </Supertip>
+                       <Icon>
+                    <bt:Image size="16" resid="currency-usd.16x16"/>
+                    <bt:Image size="32" resid="currency-usd.32x32"/>
+                    <bt:Image size="80" resid="currency-usd.80x80"/>
+                       </Icon>
+                    <Action xsi:type="ExecuteFunction">
+                        <FunctionName>currency</FunctionName>
+                    </Action>
+                    </Item>
+                   <Item id="currencyEuro">
+                      <Label resid="euro"/>
+                      <Supertip>
+                          <Title resid="euro.title"/>
+                          <Description resid="euro.Tooltip"/>
+                      </Supertip>
+                       <Icon>
+                    <bt:Image size="16" resid="currency-euro.16x16"/>
+                    <bt:Image size="32" resid="currency-euro.32x32"/>
+                    <bt:Image size="80" resid="currency-euro.80x80"/>
+                       </Icon>
+                    <Action xsi:type="ExecuteFunction">
+                        <FunctionName>currency</FunctionName>
+                    </Action>
+                    </Item> 
+                     <Item id="currencyJapan">
+                      <Label resid="japan"/>
+                      <Supertip>
+                          <Title resid="japan.title"/>
+                          <Description resid="japan.Tooltip"/>
+                      </Supertip>
+                       <Icon>
+                    <bt:Image size="16" resid="currency-japan.16x16"/>
+                    <bt:Image size="32" resid="currency-japan.32x32"/>
+                    <bt:Image size="80" resid="currency-japan.80x80"/>
+                       </Icon>
+                    <Action xsi:type="ExecuteFunction">
+                        <FunctionName>currency</FunctionName>
+                    </Action>
+                    </Item> 
+                    <Item id="currencyCanada">
+                      <Label resid="canada"/>
+                      <Supertip>
+                          <Title resid="canada.title"/>
+                          <Description resid="canada.Tooltip"/>
+                      </Supertip>
+                       <Icon>
+                    <bt:Image size="16" resid="currency-canada.16x16"/>
+                    <bt:Image size="32" resid="currency-canada.32x32"/>
+                    <bt:Image size="80" resid="currency-canada.80x80"/>
+                       </Icon>
+                    <Action xsi:type="ExecuteFunction">
+                        <FunctionName>currency</FunctionName>
+                    </Action>
+                    </Item>
+                    <Item id="currencyAustralian">
+                      <Label resid="australian"/>
+                      <Supertip>
+                          <Title resid="australian.title"/>
+                          <Description resid="australian.Tooltip"/>
+                      </Supertip>
+                       <Icon>
+                    <bt:Image size="16" resid="currency-australian.16x16"/>
+                    <bt:Image size="32" resid="currency-australian.32x32"/>
+                    <bt:Image size="80" resid="currency-australian.80x80"/>
+                       </Icon>
+                    <Action xsi:type="ExecuteFunction">
+                        <FunctionName>currency</FunctionName>
+                    </Action>
+                    </Item>    
+                     <Item id="currencySwiss">
+                      <Label resid="swiss"/>
+                      <Supertip>
+                          <Title resid="swiss.title"/>
+                          <Description resid="swiss.Tooltip"/>
+                      </Supertip>
+                       <Icon>
+                    <bt:Image size="16" resid="currency-swiss.16x16"/>
+                    <bt:Image size="32" resid="currency-swiss.32x32"/>
+                    <bt:Image size="80" resid="currency-swiss.80x80"/>
+                       </Icon>
+                    <Action xsi:type="ExecuteFunction">
+                        <FunctionName>currency</FunctionName>
+                    </Action>
+                    </Item>
+                    <Item id="currencyChina">
+                      <Label resid="china"/>
+                      <Supertip>
+                          <Title resid="china.title"/>
+                          <Description resid="china.Tooltip"/>
+                      </Supertip>
+                       <Icon>
+                    <bt:Image size="16" resid="currency-china.16x16"/>
+                    <bt:Image size="32" resid="currency-china.32x32"/>
+                    <bt:Image size="80" resid="currency-china.80x80"/>
+                       </Icon>
+                    <Action xsi:type="ExecuteFunction">
+                        <FunctionName>currency</FunctionName>
+                    </Action>
+                    </Item> 
+                    <Item id="currencyHongkong">
+                      <Label resid="hongkong"/>
+                      <Supertip>
+                          <Title resid="hongkong.title"/>
+                          <Description resid="hongkong.Tooltip"/>
+                      </Supertip>
+                       <Icon>
+                    <bt:Image size="16" resid="currency-hongkong.16x16"/>
+                    <bt:Image size="32" resid="currency-hongkong.32x32"/>
+                    <bt:Image size="80" resid="currency-hongkong.80x80"/>
+                       </Icon>
+                    <Action xsi:type="ExecuteFunction">
+                        <FunctionName>currency</FunctionName>
+                    </Action>
+                    </Item>
+                     <Item id="currencyNewZeland">
+                      <Label resid="newzeland"/>
+                      <Supertip>
+                          <Title resid="newzeland.title"/>
+                          <Description resid="newzeland.Tooltip"/>
+                      </Supertip>
+                       <Icon>
+                    <bt:Image size="16" resid="currency-newzeland.16x16"/>
+                    <bt:Image size="32" resid="currency-newzeland.32x32"/>
+                    <bt:Image size="80" resid="currency-newzeland.80x80"/>
+                       </Icon>
+                    <Action xsi:type="ExecuteFunction">
+                        <FunctionName>currency</FunctionName>
+                    </Action>
+                    </Item>
+                     <Item id="currencyVietnam">
+                      <Label resid="vietnam"/>
+                      <Supertip>
+                          <Title resid="vietnam.title"/>
+                          <Description resid="vietnam.Tooltip"/>
+                      </Supertip>
+                       <Icon>
+                    <bt:Image size="16" resid="currency-vietnam.16x16"/>
+                    <bt:Image size="32" resid="currency-vietnam.32x32"/>
+                    <bt:Image size="80" resid="currency-vietnam.80x80"/>
+                       </Icon>
+                    <Action xsi:type="ExecuteFunction">
+                        <FunctionName>currency</FunctionName>
+                    </Action>
+                    </Item>      
+                  </Items>   
+                </Control>
+              </Group>
+            </CustomTab>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+    <Resources>
+      <bt:Images>
+        <bt:Image id="Icon.16x16" DefaultValue="https://localhost:3000/assets/icons8-json-16.png"/>
+        <bt:Image id="Icon.32x32" DefaultValue="https://localhost:3000/assets/icons8-json-32.png"/>
+        <bt:Image id="Icon.80x80" DefaultValue="https://localhost:3000/assets/icons8-json-80.png"/>
+        <bt:Image id="currency.16x16" DefaultValue="https://localhost:3000/assets/icons8-currency-exchange-16.png"/>
+        <bt:Image id="currency.32x32" DefaultValue="https://localhost:3000/assets/icons8-currency-exchange-32.png"/>
+        <bt:Image id="currency.80x80" DefaultValue="https://localhost:3000/assets/icons8-currency-exchange-80.png"/>
+        <bt:Image id="currency-usd.16x16" DefaultValue="https://localhost:3000/assets/usd-currency-16.png"/>
+        <bt:Image id="currency-usd.32x32" DefaultValue="https://localhost:3000/assets/usd-currency-32.png"/>
+        <bt:Image id="currency-usd.80x80" DefaultValue="https://localhost:3000/assets/usd-currency-80.png"/>
+        <bt:Image id="currency-euro.16x16" DefaultValue="https://localhost:3000/assets/euro-currency-16.png"/>
+        <bt:Image id="currency-euro.32x32" DefaultValue="https://localhost:3000/assets/euro-currency-32.png"/>
+        <bt:Image id="currency-euro.80x80" DefaultValue="https://localhost:3000/assets/euro-currency-80.png"/>
+        <bt:Image id="currency-japan.16x16" DefaultValue="https://localhost:3000/assets/japan-currency-16.png"/>
+        <bt:Image id="currency-japan.32x32" DefaultValue="https://localhost:3000/assets/japan-currency-32.png"/>
+        <bt:Image id="currency-japan.80x80" DefaultValue="https://localhost:3000/assets/japan-currency-80.png"/>
+        <bt:Image id="currency-canada.16x16" DefaultValue="https://localhost:3000/assets/canada-dollar-16.png"/>
+        <bt:Image id="currency-canada.32x32" DefaultValue="https://localhost:3000/assets/canada-dollar-32.png"/>
+        <bt:Image id="currency-canada.80x80" DefaultValue="https://localhost:3000/assets/canada-dollar-80.png"/>
+        <bt:Image id="currency-australian.16x16" DefaultValue="https://localhost:3000/assets/australian-dollar-16.png"/>
+        <bt:Image id="currency-australian.32x32" DefaultValue="https://localhost:3000/assets/australian-dollar-32.png"/>
+        <bt:Image id="currency-australian.80x80" DefaultValue="https://localhost:3000/assets/australian-dollar-80.png"/>
+        <bt:Image id="currency-swiss.16x16" DefaultValue="https://localhost:3000/assets/chf-currency-16.png"/>
+        <bt:Image id="currency-swiss.32x32" DefaultValue="https://localhost:3000/assets/chf-currency-32.png"/>
+        <bt:Image id="currency-swiss.80x80" DefaultValue="https://localhost:3000/assets/chf-currency-80.png"/>
+        <bt:Image id="currency-china.16x16" DefaultValue="https://localhost:3000/assets/china-currency-16.png"/>
+        <bt:Image id="currency-china.32x32" DefaultValue="https://localhost:3000/assets/china-currency-32.png"/>
+        <bt:Image id="currency-china.80x80" DefaultValue="https://localhost:3000/assets/china-currency-80.png"/>
+        <bt:Image id="currency-hongkong.16x16" DefaultValue="https://localhost:3000/assets/hongkong-currency-16.png"/>
+        <bt:Image id="currency-hongkong.32x32" DefaultValue="https://localhost:3000/assets/hongkong-currency-32.png"/>
+        <bt:Image id="currency-hongkong.80x80" DefaultValue="https://localhost:3000/assets/hongkong-currency-80.png"/>
+        <bt:Image id="currency-newzeland.16x16" DefaultValue="https://localhost:3000/assets/newzeland-currency-16.png"/>
+        <bt:Image id="currency-newzeland.32x32" DefaultValue="https://localhost:3000/assets/newzeland-currency-32.png"/>
+        <bt:Image id="currency-newzeland.80x80" DefaultValue="https://localhost:3000/assets/newzeland-currency-80.png"/>
+        <bt:Image id="currency-vietnam.16x16" DefaultValue="https://localhost:3000/assets/vietnam-currency-16.png"/>
+        <bt:Image id="currency-vietnam.32x32" DefaultValue="https://localhost:3000/assets/vietnam-currency-32.png"/>
+        <bt:Image id="currency-vietnam.80x80" DefaultValue="https://localhost:3000/assets/vietnam-currency-80.png"/>
+   
+   
+      </bt:Images>
+      <bt:Urls>
+        <bt:Url id="Commands.Url" DefaultValue="https://localhost:3000/commands.html"/>
+        <bt:Url id="Taskpane.Url" DefaultValue="https://localhost:3000/taskpane.html"/>
+      </bt:Urls>
+      <bt:ShortStrings>
+        <bt:String id="ExTools.Label" DefaultValue="Ex-Tools"/>
+        <bt:String id="JsonButton.Label" DefaultValue="JsonToExcel"/>
+        <bt:String id="currencyMenu.Label" DefaultValue="Currency Exchange"/>
+        <bt:String id="usd" DefaultValue="USD"/>
+        <bt:String id="usd.title" DefaultValue="currency usd"/>
+        <bt:String id="euro" DefaultValue="EUR"/>
+        <bt:String id="euro.title" DefaultValue="currency euro"/>
+        <bt:String id="japan" DefaultValue="JYP"/>
+        <bt:String id="japan.title" DefaultValue="currency japan"/>
+        <bt:String id="canada" DefaultValue="CAD"/>
+        <bt:String id="canada.title" DefaultValue="currency canada"/>
+        <bt:String id="australian" DefaultValue="AUD"/>
+        <bt:String id="australian.title" DefaultValue="currency australian"/>
+        <bt:String id="swiss" DefaultValue="CHF"/>
+        <bt:String id="swiss.title" DefaultValue="currency swiss"/>
+        <bt:String id="china" DefaultValue="CNH"/>
+        <bt:String id="china.title" DefaultValue="currency china"/>
+        <bt:String id="hongkong" DefaultValue="HKD"/>
+        <bt:String id="hongkong.title" DefaultValue="currency hongkong"/>
+        <bt:String id="newzeland" DefaultValue="NZD"/>
+        <bt:String id="newzeland.title" DefaultValue="currency newzeland"/>
+        <bt:String id="vietnam" DefaultValue="VND"/>
+        <bt:String id="vietnam.title" DefaultValue="currency vietnam"/>
+      </bt:ShortStrings>
+       <bt:LongStrings>
+        <bt:String id="JsonButton.Tooltip" DefaultValue="Click to Show a Json to excel"/>
+        <bt:String id="currencyMenu.Tooltip" DefaultValue="Click to Convert currency"/>
+        <bt:String id="usd.Tooltip" DefaultValue="Click to Convert currency usd"/>
+        <bt:String id="euro.Tooltip" DefaultValue="Click to Convert currency euro"/>
+        <bt:String id="japan.Tooltip" DefaultValue="Click to Convert currency japan"/>
+        <bt:String id="canada.Tooltip" DefaultValue="Click to Convert currency canada"/>
+        <bt:String id="australian.Tooltip" DefaultValue="Click to Convert currency australian"/>
+        <bt:String id="swiss.Tooltip" DefaultValue="Click to Convert currency swiss"/>
+        <bt:String id="china.Tooltip" DefaultValue="Click to Convert currency china"/>
+        <bt:String id="hongkong.Tooltip" DefaultValue="Click to Convert currency hongkong"/>
+        <bt:String id="newzeland.Tooltip" DefaultValue="Click to Convert currency newzeland"/>
+        <bt:String id="vietnam.Tooltip" DefaultValue="Click to Convert currency vietnam"/>
+       </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
+</OfficeApp>
