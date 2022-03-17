@@ -65,7 +65,7 @@
                     <bt:Image size="80" resid="currency.80x80"/>
                   </Icon>
                   <Items>
-                    <Item id="currencyUsd">
+                    <Item id="usd">
                       <Label resid="usd"/>
                       <Supertip>
                           <Title resid="usd.title"/>
@@ -80,7 +80,7 @@
                         <FunctionName>currency</FunctionName>
                     </Action>
                     </Item>
-                   <Item id="currencyEuro">
+                   <Item id="euro">
                       <Label resid="euro"/>
                       <Supertip>
                           <Title resid="euro.title"/>
@@ -95,7 +95,7 @@
                         <FunctionName>currency</FunctionName>
                     </Action>
                     </Item> 
-                     <Item id="currencyJapan">
+                     <Item id="japan">
                       <Label resid="japan"/>
                       <Supertip>
                           <Title resid="japan.title"/>
@@ -110,7 +110,7 @@
                         <FunctionName>currency</FunctionName>
                     </Action>
                     </Item> 
-                    <Item id="currencyCanada">
+                    <Item id="canada">
                       <Label resid="canada"/>
                       <Supertip>
                           <Title resid="canada.title"/>
@@ -125,7 +125,7 @@
                         <FunctionName>currency</FunctionName>
                     </Action>
                     </Item>
-                    <Item id="currencyAustralian">
+                    <Item id="australian">
                       <Label resid="australian"/>
                       <Supertip>
                           <Title resid="australian.title"/>
@@ -140,7 +140,7 @@
                         <FunctionName>currency</FunctionName>
                     </Action>
                     </Item>    
-                     <Item id="currencySwiss">
+                     <Item id="swiss">
                       <Label resid="swiss"/>
                       <Supertip>
                           <Title resid="swiss.title"/>
@@ -155,7 +155,7 @@
                         <FunctionName>currency</FunctionName>
                     </Action>
                     </Item>
-                    <Item id="currencyChina">
+                    <Item id="china">
                       <Label resid="china"/>
                       <Supertip>
                           <Title resid="china.title"/>
@@ -170,7 +170,7 @@
                         <FunctionName>currency</FunctionName>
                     </Action>
                     </Item> 
-                    <Item id="currencyHongkong">
+                    <Item id="hongkong">
                       <Label resid="hongkong"/>
                       <Supertip>
                           <Title resid="hongkong.title"/>
@@ -185,7 +185,7 @@
                         <FunctionName>currency</FunctionName>
                     </Action>
                     </Item>
-                     <Item id="currencyNewZeland">
+                     <Item id="newZeland">
                       <Label resid="newzeland"/>
                       <Supertip>
                           <Title resid="newzeland.title"/>
@@ -200,7 +200,7 @@
                         <FunctionName>currency</FunctionName>
                     </Action>
                     </Item>
-                     <Item id="currencyVietnam">
+                     <Item id="vietnam">
                       <Label resid="vietnam"/>
                       <Supertip>
                           <Title resid="vietnam.title"/>
