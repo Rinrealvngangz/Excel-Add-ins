@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!-- Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
+4  See LICENSE in the project root for license information -->
+
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Contoso Task Pane Add-in</title>
+
+    <!-- Office JavaScript API -->
+    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
+
+    <!-- For more information on Fluent UI, visit https://developer.microsoft.com/fluentui#/. -->
+    <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/9.6.1/css/fabric.min.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500&display=swap" rel="stylesheet"> 
+    <link href="currencyExchange.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h1>Currency Exchange</h1>
+    <div class="frm-currency">
+         <label for="from" >from:</label>
+         <input class="fromcurrency" id="frmcurrency" name="from">
+         <label for="to"> to </label>
+         <select class="selectCurrency" name="to" id="tocurrency">
+              <option value="USD">USD</option>
+              <option value="JYP">JYP</option>
+              <option value="AUD">AUD</option>
+              <option value="VND">VND</option>
+              <option value="EUR">EUR</option>
+              <option value="GBP">GBP</option>
+              <option value="CAD">CAD</option>
+              <option value="CHF">CHF</option>
+              <option value="CNH">CNH</option>
+              <option value="HKD">HKD</option>
+              <option value="NZD">NZD</option>
+          </select>
+        </div>
+        <div>
+            <input type="button" id="btn-exec" class="excuted" value="OK">
+        </div>
+        <p id="testData"></p>
+        <script src="currency.js" ></script>   
+</body>
+</html>

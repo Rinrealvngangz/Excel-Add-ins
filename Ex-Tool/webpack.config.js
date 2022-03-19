@@ -21,6 +21,7 @@ module.exports = async (env, options) => {
       polyfill: ["core-js/stable", "regenerator-runtime/runtime"],
       taskpane: "./src/taskpane/taskpane.js",
       commands: "./src/commands/commands.js",
+      currencyExchange: "./src/app/currency.js"
     },
     output: {
       devtoolModuleFilenameTemplate: "webpack:///[resource-path]?[loaders]",
@@ -85,6 +86,11 @@ module.exports = async (env, options) => {
         template: "./src/commands/commands.html",
         chunks: ["polyfill", "commands"],
       }),
+      new HtmlWebpackPlugin({
+        filename: "currencyExchange.html",
+        template: "./src/app/currencyExchange.html",
+        chunks: ["polyfill", "currencyExchange"],
+      })
     ],
     devServer: {
       headers: {
