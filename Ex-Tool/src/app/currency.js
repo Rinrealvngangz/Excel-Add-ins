@@ -68,7 +68,7 @@
         getRate(fromExchange,toExchange,1).then(()=>{
           let result = arrCurrency.map(el => el = processCurrency(el));//[200]
           resolve(result); 
-        });
+        }).catch(err => reject(err.error))
       }) 
   }
 
@@ -76,15 +76,12 @@
       return itemsFromRange.map(el => el = formatValueInput(el));      
   }
 
-  function write(message){
-      document.getElementById('testData').innerText += message;
-  }
   async function rangeForData(valuesRange) {
     try {
         await new Promise((resolve, reject) => {
             Office.context.document.bindings.addFromPromptAsync(
                 Office.BindingType.Matrix,
-                { id: "currencyRange" },
+                { id: "currencyRange",promptText:"Select where to display the data" },
                 (result) => {
                     if (result.status === Office.AsyncResultStatus.Succeeded) {
                         resolve();
@@ -115,14 +112,17 @@
       const currencyExchange = fetch(`https://api.fastforex.io/convert?from=${from}&to=${to}&amount=${amount}&api_key=${API_KEY}`, options)
             .then(response => response.json())
             .then(response =>{return response})
-            .catch(err => console.error(err));
+            .catch(err =>  write(err.error));
     return currencyExchange.then(val => {
       rate =  val.result.rate;
     })
-    } catch(err){
-      console.error(err);
+    }catch(err){
+      write(err.error);
   }}
 
   function convert(amount){
     return rate * amount;
   }
+  function write(message){
+    document.getElementById('testData').innerText += message;
+}

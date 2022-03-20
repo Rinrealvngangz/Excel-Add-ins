@@ -23,11 +23,11 @@
     <h1>Currency Exchange</h1>
     <div class="frm-currency">
          <label for="from" >from:</label>
-         <input class="fromcurrency" id="frmcurrency" name="from">
+         <input class="fromcurrency" id="frmcurrency" name="from" style="text-transform:uppercase">
          <label for="to"> to </label>
          <select class="selectCurrency" name="to" id="tocurrency">
               <option value="USD">USD</option>
-              <option value="JYP">JYP</option>
+              <option value="JPY">JPY</option>
               <option value="AUD">AUD</option>
               <option value="VND">VND</option>
               <option value="EUR">EUR</option>
@@ -40,9 +40,23 @@
           </select>
         </div>
         <div>
-            <input type="button" id="btn-exec" class="excuted" value="OK">
+            <input type="button" disabled  id="btn-exec" class="excuted" value="OK">
         </div>
         <p id="testData"></p>
         <script src="currency.js" ></script>   
+        <script>
+            const MAX_LENGTH = 3;
+            let input =  document.getElementById("frmcurrency");
+            let button = document.getElementById("btn-exec");
+            input.addEventListener("keypress",(e)=>{ 
+                if(e.target.value.length == MAX_LENGTH){
+                    e.preventDefault();
+                    return false;
+                    }
+            })
+            input.addEventListener("input",(e)=>{
+                e.target.value.length == 0 ? button.disabled =true : button.disabled = false;
+            })
+        </script>
 </body>
 </html>
