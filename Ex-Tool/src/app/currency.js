@@ -1,6 +1,6 @@
 
   let rate =0;
-  const API_KEY ="8cd415c35b-7004153c8d-r8siaj";
+  const API_KEY ="cebe9db192-e65c323709-rad7f9";
 
   Office.onReady((info) => {
     if (info.host === Office.HostType.Excel) {
