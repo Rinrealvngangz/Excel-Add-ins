@@ -96,6 +96,11 @@ module.exports = async (env, options) => {
         filename: "fillColor.html",
         template: "./src/app/fillColor.html",
         chunks: ["polyfill", "fillColor"],
+      }),
+      new HtmlWebpackPlugin({
+        filename: "removecharacter.html",
+        template: "./src/app/removecharacter.html",
+        chunks: ["polyfill", "removecharacter"],
       })
     ],
     devServer: {

@@ -251,6 +251,22 @@
                      <FunctionName>getRange</FunctionName>
                   </Action>
                 </Control>
+                  <Control xsi:type="Button" id="removeCharacter">
+                  <Label resid="removeCharacter.Label"/>
+                   <Supertip>
+                    <Title resid="removeCharacter.Label"/>
+                    <Description resid="removeCharacter.Tooltip"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="removeCharacter-16.16x16"/>
+                    <bt:Image size="32" resid="removeCharacter-32.32x32"/>
+                    <bt:Image size="80" resid="removeCharacter-80.80x80"/>
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <TaskpaneId>ButtonId1</TaskpaneId>
+                    <SourceLocation resid="removecharacter.Url"/>
+                  </Action>
+                </Control>
               </Group>
             </CustomTab>
           </ExtensionPoint>
@@ -271,6 +287,9 @@
         <bt:Image id="colorFill.16x16" DefaultValue="https://localhost:3000/assets/colorFill16.png"/>
         <bt:Image id="colorFill.32x32" DefaultValue="https://localhost:3000/assets/colorFill32.png"/>
         <bt:Image id="colorFill.80x80" DefaultValue="https://localhost:3000/assets/colorFill80.png"/>
+        <bt:Image id="removeCharacter-16.16x16" DefaultValue="https://localhost:3000/assets/removeCharacter-16.png"/>
+        <bt:Image id="removeCharacter-32.32x32" DefaultValue="https://localhost:3000/assets/removeCharacter-32.png"/>
+        <bt:Image id="removeCharacter-80.80x80" DefaultValue="https://localhost:3000/assets/removeCharacter-80.png"/>
         <!-- <bt:Image id="currency-usd.16x16" DefaultValue="https://localhost:3000/assets/usd-currency-16.png"/>
         <bt:Image id="currency-usd.32x32" DefaultValue="https://localhost:3000/assets/usd-currency-32.png"/>
         <bt:Image id="currency-usd.80x80" DefaultValue="https://localhost:3000/assets/usd-currency-80.png"/>
@@ -307,6 +326,7 @@
         <bt:Url id="Taskpane.Url"         DefaultValue="https://localhost:3000/taskpane.html"/>
         <bt:Url id="currencyExchange.Url" DefaultValue="https://localhost:3000/currencyExchange.html"/>
         <bt:Url id="fillColor.Url"        DefaultValue="https://localhost:3000/fillColor.html"/>
+        <bt:Url id="removecharacter.Url"  DefaultValue="https://localhost:3000/removecharacter.html"/>
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="ExTools.Label"      DefaultValue="Ex-Tools"/>
@@ -314,6 +334,7 @@
         <bt:String id="currencyMenu.Label" DefaultValue="Currency Exchange"/>
         <bt:String id="splitName.Label"    DefaultValue="Split Name"/>
         <bt:String id="FillColor.Label"    DefaultValue="Fill Color"/>
+        <bt:String id="removeCharacter.Label" DefaultValue="Remove Character Unwanted"/>
         <!-- <bt:String id="usd" DefaultValue="USD"/>
         <bt:String id="usd.title" DefaultValue="currency usd"/>
         <bt:String id="euro" DefaultValue="EUR"/>
@@ -339,7 +360,8 @@
         <bt:String id="JsonButton.Tooltip" DefaultValue="Click to Show a Json to excel"/>
         <bt:String id="currencyMenu.Tooltip" DefaultValue="Click to Convert currency"/>
         <bt:String id="splitName.Tooltip" DefaultValue="Click to split name"/>
-        <bt:String id="FillColor.Tooltip" DefaultValue="Click to Fill Color "/>
+        <bt:String id="FillColor.Tooltip" DefaultValue="Click to Fill Color"/>
+        <bt:String id="removeCharacter.Tooltip" DefaultValue="Click to remove character"/>
        </bt:LongStrings>
     </Resources>
   </VersionOverrides>

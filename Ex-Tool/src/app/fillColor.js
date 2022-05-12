@@ -1,15 +1,19 @@
 
-Office.onReady((info) => {
+ Office.onReady((info) => {
     if (info.host === Office.HostType.Excel) {
       document.getElementById("btnFillColor").onclick = run;
     }
   });
-let colorHexStar;
-let colorHexEnd;
+ let colorHexStar = "";
+ let colorHexEnd  = "";
 
  async function run() {
 try {
    await Excel.run(async (context) => {
+    if(colorHexStar == "" && colorHexEnd == ""){
+      $('#error').attr('hidden',false);
+  }else{
+    $('#error').attr('hidden',true);
     const range = context.workbook.getSelectedRange();
     range.load(["address","rowCount", "columnCount", "cellCount"]); 
     // Read the range address
@@ -30,9 +34,7 @@ try {
     if(range.columnCount >1){
        const filterNumberAddress = groupNumberAddress(arrAddress);
        const rowAddress = GetRowAddress(filterNumberAddress);
-       write(rowAddress.length);
        rowAddress.forEach((row,i)=>{
-         write(row);
             fillColorCellByAddress(row,worksheets,scaleColors[i]);     
         })
     }else{
@@ -40,8 +42,7 @@ try {
            await fillColorCellByAddress(el,worksheets,scaleColors[i]);
         })
     }
-    });
-  
+  } });
 }catch(error){
   exception(error,textJson);
 }
@@ -72,33 +73,32 @@ try {
         colorHexEnd =color;
     });
     
-const write = (message) =>{
-    $("#testData1").append(message);
-}
+  const write = (message) =>{
+      $("#testData1").append(message);
+  }
 
-function groupNumberAddress(array){
-   const grouped = array.reduce((r, v, i, a) => {
-        let item = a[i - 1];
-        if(item != undefined){
-           item = parseInt(item.match(/\d+/)[0]);
-        }
-        if (parseInt(v.match(/\d+/)[0]) === item ) {
-            r[r.length - 1].push(v);
-        } else {
-            r.push(parseInt(v.match(/\d+/)[0]) === parseInt(a[i + 1].match(/\d+/)[0]) ? [v] : v);
-        }
-        return r;
-    }, []);
-    return grouped;
-}
+  function groupNumberAddress(array){
+    const grouped = array.reduce((r, v, i, a) => {
+          let item = a[i - 1];
+          if(item != undefined){
+            item = parseInt(item.match(/\d+/)[0]);
+          }
+          if (parseInt(v.match(/\d+/)[0]) === item ) {
+              r[r.length - 1].push(v);
+          } else {
+              r.push(parseInt(v.match(/\d+/)[0]) === parseInt(a[i + 1].match(/\d+/)[0]) ? [v] : v);
+          }
+          return r;
+      }, []);
+      return grouped;
+  }
 
-function GetRowAddress(array){
-  const rowAddress =[];
-   array.forEach(el=>{
-     let n = el.length;
-     let cell = el[0]+":"+el[n-1];//A1:C1
-     rowAddress.push(cell);
-   })
-  
-   return rowAddress;
-}
+  function GetRowAddress(array){
+    const rowAddress =[];
+    array.forEach(el=>{
+      let n = el.length;
+      let cell = el[0]+":"+el[n-1];//A1:C1
+      rowAddress.push(cell);
+    }) 
+    return rowAddress;
+  }

@@ -1,0 +1,17 @@
+.container {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}
+
+.btnRemove {
+    margin: auto;
+    margin-top: 10px;
+    width: 50%;
+}
+#notifyInvalid {
+    justify-content: center;
+    align-items: center;
+    color: red;
+    font-weight: bold;
+}

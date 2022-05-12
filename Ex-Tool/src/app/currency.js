@@ -111,14 +111,12 @@
         await Excel.run(async (context) => {
             let binding = context.workbook.bindings.getItem("currencyRange");
             let range = binding.getRange();
-            range.load("address");  
+            range.load("address");
           //  write(JSON.stringify(valuesRange));
             let resizeRange =  range.getResizedRange(valuesRange.length-1, valuesRange[0].length-1);
            // resizeRange.getCell(0,0).format.horizontalAlignment = Excel.HorizontalAlignment.center;
             resizeRange.values = valuesRange;
             await context.sync();
-            //write(range.address);
-         
         });
     }
     catch (error) {
