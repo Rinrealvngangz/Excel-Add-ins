@@ -22,6 +22,7 @@ module.exports = async (env, options) => {
       taskpane: "./src/taskpane/taskpane.js",
       commands: "./src/commands/commands.js",
       currencyExchange: "./src/app/currency.js"
+    //  fillColor: "./src/app/fillColor.js"
     },
     output: {
       devtoolModuleFilenameTemplate: "webpack:///[resource-path]?[loaders]",
@@ -90,6 +91,11 @@ module.exports = async (env, options) => {
         filename: "currencyExchange.html",
         template: "./src/app/currencyExchange.html",
         chunks: ["polyfill", "currencyExchange"],
+      }),
+      new HtmlWebpackPlugin({
+        filename: "fillColor.html",
+        template: "./src/app/fillColor.html",
+        chunks: ["polyfill", "fillColor"],
       })
     ],
     devServer: {

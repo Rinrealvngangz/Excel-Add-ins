@@ -33,9 +33,6 @@
                   <bt:Image size="16" resid="Icon.16x16"/>
                   <bt:Image size="32" resid="Icon.32x32"/>
                   <bt:Image size="80" resid="Icon.80x80"/>
-                   <bt:Image size="16" resid="currency.16x16"/>
-                    <bt:Image size="32" resid="currency.32x32"/>
-                    <bt:Image size="80" resid="currency.80x80"/>
                 </Icon>
 
                 <Control xsi:type="Button" id="JsonButton">
@@ -69,7 +66,7 @@
                     <Action xsi:type="ShowTaskpane">
                     <TaskpaneId>ButtonId2</TaskpaneId>
                     <SourceLocation resid="currencyExchange.Url"/>
-                  </Action>
+                    </Action>
                   <!-- <Items>
                     <Item id="usd">
                       <Label resid="usd"/>
@@ -223,6 +220,22 @@
                     </Item>      
                   </Items>    -->
                 </Control>
+                  <Control xsi:type="Button" id="FillColor">
+                  <Label resid="FillColor.Label"/>
+                   <Supertip>
+                    <Title resid="FillColor.Label"/>
+                    <Description resid="FillColor.Tooltip"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="colorFill.16x16"/>
+                    <bt:Image size="32" resid="colorFill.32x32"/>
+                    <bt:Image size="80" resid="colorFill.80x80"/>
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <TaskpaneId>ButtonId1</TaskpaneId>
+                    <SourceLocation resid="fillColor.Url"/>
+                  </Action>
+                </Control>
                    <Control xsi:type="Button" id="splitName">
                   <Label resid="splitName.Label"/>
                    <Supertip>
@@ -246,15 +259,18 @@
     </Hosts>
     <Resources>
       <bt:Images>
-        <bt:Image id="Icon.16x16" DefaultValue="https://localhost:3000/assets/icons8-json-16.png"/>
-        <bt:Image id="Icon.32x32" DefaultValue="https://localhost:3000/assets/icons8-json-32.png"/>
-        <bt:Image id="Icon.80x80" DefaultValue="https://localhost:3000/assets/icons8-json-80.png"/>
-        <bt:Image id="currency.16x16" DefaultValue="https://localhost:3000/assets/icons8-currency-exchange-16.png"/>
-        <bt:Image id="currency.32x32" DefaultValue="https://localhost:3000/assets/icons8-currency-exchange-32.png"/>
-        <bt:Image id="currency.80x80" DefaultValue="https://localhost:3000/assets/icons8-currency-exchange-80.png"/>
+        <bt:Image id="Icon.16x16"      DefaultValue="https://localhost:3000/assets/icons8-json-16.png"/>
+        <bt:Image id="Icon.32x32"      DefaultValue="https://localhost:3000/assets/icons8-json-32.png"/>
+        <bt:Image id="Icon.80x80"      DefaultValue="https://localhost:3000/assets/icons8-json-80.png"/>
+        <bt:Image id="currency.16x16"  DefaultValue="https://localhost:3000/assets/icons8-currency-exchange-16.png"/>
+        <bt:Image id="currency.32x32"  DefaultValue="https://localhost:3000/assets/icons8-currency-exchange-32.png"/>
+        <bt:Image id="currency.80x80"  DefaultValue="https://localhost:3000/assets/icons8-currency-exchange-80.png"/>
         <bt:Image id="splitName.16x16" DefaultValue="https://localhost:3000/assets/splitName.png"/>
         <bt:Image id="splitName.32x32" DefaultValue="https://localhost:3000/assets/splitName.png"/>
         <bt:Image id="splitName.80x80" DefaultValue="https://localhost:3000/assets/splitName.png"/>
+        <bt:Image id="colorFill.16x16" DefaultValue="https://localhost:3000/assets/colorFill16.png"/>
+        <bt:Image id="colorFill.32x32" DefaultValue="https://localhost:3000/assets/colorFill32.png"/>
+        <bt:Image id="colorFill.80x80" DefaultValue="https://localhost:3000/assets/colorFill80.png"/>
         <!-- <bt:Image id="currency-usd.16x16" DefaultValue="https://localhost:3000/assets/usd-currency-16.png"/>
         <bt:Image id="currency-usd.32x32" DefaultValue="https://localhost:3000/assets/usd-currency-32.png"/>
         <bt:Image id="currency-usd.80x80" DefaultValue="https://localhost:3000/assets/usd-currency-80.png"/>
@@ -287,15 +303,17 @@
         <bt:Image id="currency-vietnam.80x80" DefaultValue="https://localhost:3000/assets/vietnam-currency-80.png"/> -->
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="Commands.Url" DefaultValue="https://localhost:3000/commands.html"/>
-        <bt:Url id="Taskpane.Url" DefaultValue="https://localhost:3000/taskpane.html"/>
+        <bt:Url id="Commands.Url"         DefaultValue="https://localhost:3000/commands.html"/>
+        <bt:Url id="Taskpane.Url"         DefaultValue="https://localhost:3000/taskpane.html"/>
         <bt:Url id="currencyExchange.Url" DefaultValue="https://localhost:3000/currencyExchange.html"/>
+        <bt:Url id="fillColor.Url"        DefaultValue="https://localhost:3000/fillColor.html"/>
       </bt:Urls>
       <bt:ShortStrings>
-        <bt:String id="ExTools.Label" DefaultValue="Ex-Tools"/>
-        <bt:String id="JsonButton.Label" DefaultValue="JsonToExcel"/>
+        <bt:String id="ExTools.Label"      DefaultValue="Ex-Tools"/>
+        <bt:String id="JsonButton.Label"   DefaultValue="JsonToExcel"/>
         <bt:String id="currencyMenu.Label" DefaultValue="Currency Exchange"/>
-        <bt:String id="splitName.Label" DefaultValue="Split Name"/>
+        <bt:String id="splitName.Label"    DefaultValue="Split Name"/>
+        <bt:String id="FillColor.Label"    DefaultValue="Fill Color"/>
         <!-- <bt:String id="usd" DefaultValue="USD"/>
         <bt:String id="usd.title" DefaultValue="currency usd"/>
         <bt:String id="euro" DefaultValue="EUR"/>
@@ -321,16 +339,7 @@
         <bt:String id="JsonButton.Tooltip" DefaultValue="Click to Show a Json to excel"/>
         <bt:String id="currencyMenu.Tooltip" DefaultValue="Click to Convert currency"/>
         <bt:String id="splitName.Tooltip" DefaultValue="Click to split name"/>
-        <!-- <bt:String id="usd.Tooltip" DefaultValue="Click to Convert currency usd"/>
-        <bt:String id="euro.Tooltip" DefaultValue="Click to Convert currency euro"/>
-        <bt:String id="japan.Tooltip" DefaultValue="Click to Convert currency japan"/>
-        <bt:String id="canada.Tooltip" DefaultValue="Click to Convert currency canada"/>
-        <bt:String id="australian.Tooltip" DefaultValue="Click to Convert currency australian"/>
-        <bt:String id="swiss.Tooltip" DefaultValue="Click to Convert currency swiss"/>
-        <bt:String id="china.Tooltip" DefaultValue="Click to Convert currency china"/>
-        <bt:String id="hongkong.Tooltip" DefaultValue="Click to Convert currency hongkong"/>
-        <bt:String id="newzeland.Tooltip" DefaultValue="Click to Convert currency newzeland"/>
-        <bt:String id="vietnam.Tooltip" DefaultValue="Click to Convert currency vietnam"/> -->
+        <bt:String id="FillColor.Tooltip" DefaultValue="Click to Fill Color "/>
        </bt:LongStrings>
     </Resources>
   </VersionOverrides>
