@@ -86,23 +86,44 @@ Office.onReady((info) => {
     try {
       await Excel.run(async (context) => {
         let sheet = context.workbook.worksheets.getItem("Sheet1");
+       
         arrCellSelected = addressGlobal.split(':');
-        arrCellSelected.length > 1 ? addressGlobal= arrCellSelected[0] : addressGlobal;
-        let range = sheet.getRange(addressGlobal);
-        console.log(addressGlobal);
-        console.log(valuesRange);
-        range.load("address");
-        let resizeRange = range.getResizedRange(valuesRange.length - 1, valuesRange[0].length - 1);
-        // resizeRange.getCell().format.horizontalAlignment = Excel.HorizontalAlignment.center;
-        // resizeRange.values = [["Nguyễn văn èo  "], ["Phạm Anh quốc  "]];
-       resizeRange.values = valuesRange;
+        if(arrCellSelected.length > 1){
+          let characterAddressF = arrCellSelected[0].slice(0,1);
+          let characterAddressS = arrCellSelected[1].slice(0,1);
+          if(characterAddressF !== characterAddressS){
+           valuesRange = mergeAddress(valuesRange);
+           let range = sheet.getRange(addressGlobal);
+           range.load("address");
+           range.values = [valuesRange];
+
+          }else{
+           // arrCellSelected.length > 1 ? addressGlobal= arrCellSelected[0] : addressGlobal;
+            let range = sheet.getRange(addressGlobal);
+          //  range.load("address");
+           // let resizeRange = range.getResizedRange(valuesRange.length - 1, valuesRange[0].length - 1);
+           // resizeRange.getCell().format.horizontalAlignment = Excel.HorizontalAlignment.center;
+           range.values = valuesRange;
+          }
+        }
+       // range.values =   [["Nguyễn văn èo  ","tset","tttttt"]];
+        //[["Nguyễn văn èo  "],["test"],["test"]];
+       // range.values = valuesRange;
         await context.sync();
       });
     } catch (error) {
       console.log(error);
     }
   }
-  
+  function mergeAddress(valuesRange){
+      let rs=[];
+      valuesRange.forEach(el=>{
+            el.forEach(item=>{
+              rs.push(item);
+            })
+      })
+      return rs;
+  }
   async function rangeForData(valuesRange) {
     try {
       await new Promise((resolve, reject) => {
