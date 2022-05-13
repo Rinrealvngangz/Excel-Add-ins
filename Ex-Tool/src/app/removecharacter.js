@@ -5,7 +5,9 @@ Office.onReady((info) => {
     }
   });
   
-  let addressGlobal = ""
+  let addressGlobal = "";
+  let rowCount =0;
+  let columnCount =0;
   async function removeCharacterUnwanted(){
   let characterUnwanted = document.getElementById("inputCharacter").value;
     if(characterUnwanted===""){
@@ -44,10 +46,11 @@ Office.onReady((info) => {
   async function ReturnArrayDataFromCells() {
     try {
       const result= await Excel.run(async (context) => {
-        const range = context.workbook.getSelectedRanges();
-        range.load("address");
-        await context.sync();
+      const range = context.workbook.getSelectedRange();
+      range.load(["address", "columnCount"]);
+      await context.sync();
       var address = range.address;
+      columnCount = range.columnCount;
       var addressDetail = filterAddress(address);
       let  arrContentFromAddressDetail= await getContentInAddress(addressDetail);
       return arrContentFromAddressDetail;  
@@ -92,23 +95,17 @@ Office.onReady((info) => {
           let characterAddressF = arrCellSelected[0].slice(0,1);
           let characterAddressS = arrCellSelected[1].slice(0,1);
           if(characterAddressF !== characterAddressS){
-           valuesRange = mergeAddress(valuesRange);
+          let mergeAddressArr = mergeAddress(valuesRange);
+          valuesRange = splitArrayIntoChunksOfCol(mergeAddressArr,columnCount)
            let range = sheet.getRange(addressGlobal);
            range.load("address");
-           range.values = [valuesRange];
+           range.values = valuesRange;
 
           }else{
-           // arrCellSelected.length > 1 ? addressGlobal= arrCellSelected[0] : addressGlobal;
             let range = sheet.getRange(addressGlobal);
-          //  range.load("address");
-           // let resizeRange = range.getResizedRange(valuesRange.length - 1, valuesRange[0].length - 1);
-           // resizeRange.getCell().format.horizontalAlignment = Excel.HorizontalAlignment.center;
-           range.values = valuesRange;
+            range.values = valuesRange;
           }
         }
-       // range.values =   [["Nguyễn văn èo  ","tset","tttttt"]];
-        //[["Nguyễn văn èo  "],["test"],["test"]];
-       // range.values = valuesRange;
         await context.sync();
       });
     } catch (error) {
@@ -116,13 +113,22 @@ Office.onReady((info) => {
     }
   }
   function mergeAddress(valuesRange){
-      let rs=[];
+      let mergeAddress=[];
       valuesRange.forEach(el=>{
             el.forEach(item=>{
-              rs.push(item);
+              mergeAddress.push(item);
             })
       })
-      return rs;
+      return mergeAddress;
+  }
+  function splitArrayIntoChunksOfCol(mergeAddress,columnCount){
+    let chunked = []
+    let size = columnCount;
+    
+    for (let i = 0;  i < mergeAddress.length; i += size) {
+      chunked.push(mergeAddress.slice(i, i + size))
+    }
+    return chunked;
   }
   async function rangeForData(valuesRange) {
     try {
@@ -155,4 +161,6 @@ Office.onReady((info) => {
   
   
   
-  
+  const write = (message) =>{
+    document.getElementById("testData1").innerText += message
+}
